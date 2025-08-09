@@ -1,4 +1,4 @@
-exclude: "(src/anking_notetypes/note_types)|(src/enhanced_cloze/ankiaddonconfig)"
+exclude: "(src/anking_notetypes/note_types)|(src/enhanced_cloze/ankiaddonconfig)|(src/enhanced_cloze/lib)"
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0

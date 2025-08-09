@@ -5,7 +5,7 @@ from aqt.gui_hooks import add_cards_will_add_note
 from aqt.utils import tr
 
 from .constants import ANKI_VERSION, MODEL_NAME
-from .lib.packaging.version import Version
+from .lib.packaging.version import Version  # type: ignore
 
 
 def setup_prevent_warnings_about_clozes() -> None:

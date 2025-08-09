@@ -2,9 +2,21 @@
 files=[
     "src/enhanced_cloze",
 ]
+exclude = [
+    "src/enhanced_cloze/lib/",
+    "src/enhanced_cloze/ankiaddonconfig/",
+]
 no_strict_optional = true
 check_untyped_defs = true
 
 [[tool.mypy.overrides]]
 module = "enhanced_cloze.ankiaddonconfig.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = [
+    "anki._legacy",
+    "anki._vendor",
+    "_manylinux"
+]
 ignore_errors = true

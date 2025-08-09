@@ -11,7 +11,7 @@
 from aqt import mw
 from aqt.gui_hooks import main_window_did_init
 from aqt.qt import QMenu
-from aqt.utils import askUser, tooltip
+from aqt.utils import askUser, qconnect, tooltip
 
 from .config import conf
 from .constants import MODEL_NAME
@@ -31,7 +31,7 @@ def setup_enhanced_cloze_menu() -> None:
 
 def add_config_action_to_menu(menu: QMenu) -> None:
     action = menu.addAction("Config")
-    action.triggered.connect(conf.open_config)
+    qconnect(action.triggered, conf.open_config)
 
 
 def add_reset_notetype_action_to_menu(menu: QMenu) -> None:
@@ -56,7 +56,7 @@ def add_reset_notetype_action_to_menu(menu: QMenu) -> None:
         mw.col.models.update_dict(default_model)
         tooltip("Successfully reset Enhanced Cloze note type.")
 
-    action.triggered.connect(on_triggered)
+    qconnect(action.triggered, on_triggered)
 
 
 def add_reset_css_action_to_menu(menu: QMenu) -> None:
@@ -77,4 +77,4 @@ def add_reset_css_action_to_menu(menu: QMenu) -> None:
         mw.col.models.update_dict(current_model)
         tooltip("Successfully reset Enhanced Cloze note type styling.")
 
-    action.triggered.connect(on_triggered)
+    qconnect(action.triggered, on_triggered)

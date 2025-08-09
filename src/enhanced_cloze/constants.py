@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from anki.buildinfo import version as anki_version
-from .lib.packaging.version import Version
+from .lib.packaging.version import Version  # type: ignore
 
 MODEL_NAME = "Enhanced Cloze 2.1 v2"
 ANKI_VERSION = Version(anki_version)

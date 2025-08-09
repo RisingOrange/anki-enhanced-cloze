@@ -8,7 +8,7 @@ from aqt.gui_hooks import editor_did_init_shortcuts
 from aqt.qt import Qt
 
 from .constants import ANKI_VERSION, MODEL_NAME
-from packaging.version import Version
+from .lib.packaging.version import Version
 
 
 # this is needed so the no-cloze mode works

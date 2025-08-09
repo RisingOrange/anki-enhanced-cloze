@@ -4,11 +4,12 @@ from aqt.editor import Editor
 from aqt.gui_hooks import add_cards_will_add_note
 from aqt.utils import tr
 
-from .constants import ANKI_VERSION_TUPLE, MODEL_NAME
+from .constants import ANKI_VERSION, MODEL_NAME
+from packaging.version import Version
 
 
 def setup_prevent_warnings_about_clozes() -> None:
-    if ANKI_VERSION_TUPLE == (2, 1, 26):
+    if ANKI_VERSION == Version("2.1.26"):
         from anki.models import ModelManager
 
         original_availableClozeOrds = (
@@ -25,7 +26,7 @@ def setup_prevent_warnings_about_clozes() -> None:
         ModelManager._availClozeOrds = (  # type: ignore  # pylint: disable=protected-access
             new_availClozeOrds
         )
-    elif ANKI_VERSION_TUPLE < (2, 1, 45):
+    elif ANKI_VERSION < Version("2.1.45"):
         original_cloze_numbers_in_fields = Note.cloze_numbers_in_fields
 
         def new_cloze_numbers_in_fields(self):

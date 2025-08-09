@@ -1,3 +1,9 @@
+# flake8: noqa: E402
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent / "lib"))
+
 from aqt.gui_hooks import profile_did_open
 
 from .compat import add_compatibility_aliases

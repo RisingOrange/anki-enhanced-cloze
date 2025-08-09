@@ -1,9 +1,10 @@
 from pathlib import Path
 
 from anki.buildinfo import version as anki_version
+from packaging.version import Version
 
 MODEL_NAME = "Enhanced Cloze 2.1 v2"
-ANKI_VERSION_TUPLE = tuple(int(i) for i in anki_version.split("."))
+ANKI_VERSION = Version(anki_version)
 NOTE_TYPE_DIR = Path(__file__).parent / "note_type"
 
 

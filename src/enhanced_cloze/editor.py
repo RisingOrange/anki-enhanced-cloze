@@ -7,7 +7,8 @@ from aqt.editor import Editor
 from aqt.gui_hooks import editor_did_init_shortcuts
 from aqt.qt import Qt
 
-from .constants import ANKI_VERSION_TUPLE, MODEL_NAME
+from .constants import ANKI_VERSION, MODEL_NAME
+from packaging.version import Version
 
 
 # this is needed so the no-cloze mode works
@@ -65,5 +66,5 @@ def replace_shortcut(
 
 def setup_editor() -> None:
     note_will_flush.append(maybe_fill_in_or_remove_cloze99)
-    if ANKI_VERSION_TUPLE < (2, 1, 50):
+    if ANKI_VERSION < Version("2.1.50"):
         editor_did_init_shortcuts.append(make_cloze_shortcut_start_at_cloze1)

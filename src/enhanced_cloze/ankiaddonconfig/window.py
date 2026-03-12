@@ -17,6 +17,7 @@ QT6 = QT_VERSION_STR.split(".")[0] == "6"
 class ConfigWindow(QDialog):
     def __init__(self, conf: "ConfigManager") -> None:
         QDialog.__init__(self, mw, Qt.WindowType.Window)  # type: ignore
+        self.setModal(True)
         self.conf = conf
         self.mgr = mw.addonManager
         self.widget_updates: List[Callable[[], None]] = []
@@ -26,7 +27,6 @@ class ConfigWindow(QDialog):
         self.geom_key = f"addonconfig-{conf.addon_name}"
 
         self.setWindowTitle(f"Config for {conf.addon_name}")
-        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
         self.setup()
 
     def setup(self) -> None:
@@ -208,7 +208,7 @@ class ConfigLayout(QBoxLayout):
         checkbox.stateChanged.connect(
             lambda s: self.conf.set(
                 key,
-                s == (Qt.CheckState.Checked.value if QT6 else Qt.CheckState.Checked),
+                s == (Qt.CheckState.Checked.value if QT6 else Qt.CheckState.Checked),  # type: ignore
             )
         )
         self.addWidget(checkbox)
@@ -240,7 +240,9 @@ class ConfigLayout(QBoxLayout):
 
         self.widget_updates.append(update)
 
-        combobox.currentTextChanged.connect(lambda text: self.conf.set(key, text))
+        combobox.currentIndexChanged.connect(
+            lambda idx: self.conf.set(key, values[idx])
+        )
 
         if description is not None:
             row = self.hlayout()
@@ -384,7 +386,7 @@ class ConfigLayout(QBoxLayout):
         def open_color_dialog() -> None:
             color_dialog = QColorDialog(self.config_window)
             if opacity:
-                color_dialog.setOptions(QColorDialog.ShowAlphaChannel)
+                color_dialog.setOptions(QColorDialog.ColorDialogOption.ShowAlphaChannel)
             color_dialog.setCurrentColor(color)
             color_dialog.colorSelected.connect(lambda c: save(c))
             color_dialog.exec()
@@ -453,8 +455,8 @@ class ConfigLayout(QBoxLayout):
 
         return (line_edit, button)
 
-    def shortcut_edit(
-        self, key, description: Optional[str] = None, tooltip: Optional[str] = None
+    def shortcut_input(
+        self, key: str, description: Optional[str] = None, tooltip: Optional[str] = None
     ) -> Tuple[QKeySequenceEdit, QPushButton]:
         edit = QKeySequenceEdit()
 
@@ -462,7 +464,7 @@ class ConfigLayout(QBoxLayout):
             row = self.hlayout()
             row.text(description, tooltip=tooltip)
 
-        def update():
+        def update() -> None:
             val = self.conf.get(key)
             if not isinstance(val, str):
                 raise InvalidConfigValueError(key, "str", val)
@@ -475,9 +477,7 @@ class ConfigLayout(QBoxLayout):
             lambda s: self.conf.set(key, edit.keySequence().toString())
         )
 
-        self.addWidget(edit)
-
-        def on_shortcut_clear_btn_click():
+        def on_shortcut_clear_btn_click() -> None:
             edit.clear()
 
         shortcut_clear_btn = QPushButton("Clear")
@@ -665,7 +665,7 @@ class ConfigLayout(QBoxLayout):
         """Legacy. Adds QScrollArea > QWidget*2 > ConfigLayout, returns the layout."""
         return self._scroll_layout(
             QSizePolicy.Policy.Expanding if horizontal else QSizePolicy.Policy.Minimum,
-            QSizePolicy.Policy.Expanding if vertical else QSizePolicy.Minimum,
+            QSizePolicy.Policy.Expanding if vertical else QSizePolicy.Policy.Minimum,
             Qt.ScrollBarPolicy.ScrollBarAsNeeded,
             Qt.ScrollBarPolicy.ScrollBarAsNeeded,
         )

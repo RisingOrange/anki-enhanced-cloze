@@ -121,7 +121,7 @@ class ConfigManager:
         for fn in self.window_open_hook:
             fn(config_window)
         config_window.on_open()
-        config_window.exec()
+        config_window.open()
         return True
 
     def use_custom_window(self) -> None:

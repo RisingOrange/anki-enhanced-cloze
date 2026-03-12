@@ -36,16 +36,16 @@ def _general_tab(conf_window: ConfigWindow) -> None:
     tab = conf_window.add_tab("General")
 
     tab.text("Shorcuts", bold=True)
-    tab.shortcut_edit(
+    tab.shortcut_input(
         "revealNextGenuineClozeShortcut", "Shortcut to reveal next genuine cloze"
     )
-    tab.shortcut_edit(
+    tab.shortcut_input(
         "revealAllGenuineClozesShortcut", "Shortcut to reveal all genuine clozes"
     )
-    tab.shortcut_edit(
+    tab.shortcut_input(
         "revealNextPseudoClozeShortcut", "Shortcut to reveal next pseudo cloze"
     )
-    tab.shortcut_edit(
+    tab.shortcut_input(
         "revealAllPseudoClozesShortcut", "Shortcut to reveal all pseudo clozes"
     )
     tab.hseparator()

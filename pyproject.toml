@@ -1,3 +1,20 @@
+[project]
+name = "anki-enhanced-cloze"
+version = "0.0.0"
+requires-python = ">=3.9"
+dependencies = [
+    "aqt",
+]
+
+[dependency-groups]
+dev = [
+    "debugpy",
+    "mypy",
+    "pre-commit",
+    "pylint",
+    "black",
+]
+
 [tool.mypy]
 files=[
     "src/enhanced_cloze",

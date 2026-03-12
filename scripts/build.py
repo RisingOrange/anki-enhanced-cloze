@@ -8,6 +8,7 @@ LIB_TARGET = PROJECT_ROOT / "src/enhanced_cloze/lib"
 LIB_TARGET.mkdir(exist_ok=True)
 subprocess.run(
     [
+        "uv",
         "pip",
         "install",
         *BUNDLE_FILE.read_text().strip().splitlines(),

@@ -5,7 +5,6 @@ from aqt.gui_hooks import profile_did_open
 from pathlib import Path
 import aqt
 
-
 # Name of the jQuery file in the resources folder.
 # This has to be the same filename as the card template uses.
 # The underscore in the front prevents Anki from cleaning up the file when Check Media is run.

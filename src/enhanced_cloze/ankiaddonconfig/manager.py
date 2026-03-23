@@ -121,7 +121,8 @@ class ConfigManager:
         for fn in self.window_open_hook:
             fn(config_window)
         config_window.on_open()
-        config_window.open()
+        config_window.setWindowModality(Qt.WindowModality.ApplicationModal)
+        config_window.show()
         return True
 
     def use_custom_window(self) -> None:

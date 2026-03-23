@@ -17,7 +17,6 @@ QT6 = QT_VERSION_STR.split(".")[0] == "6"
 class ConfigWindow(QDialog):
     def __init__(self, conf: "ConfigManager") -> None:
         QDialog.__init__(self, mw, Qt.WindowType.Window)  # type: ignore
-        self.setModal(True)
         self.conf = conf
         self.mgr = mw.addonManager
         self.widget_updates: List[Callable[[], None]] = []
